@@ -1,0 +1,184 @@
+#lowering text
+text = "Hello  World!  This is a sample text with a URL: https://example.com and some HTML <b>tags</b>."
+text = text.lower()
+print(text)
+
+# Word Tokenization
+import nltk
+from nltk.tokenize import word_tokenize
+text="Hello  World!  This is a sample text with a URL: https://example.com and some HTML <b>tags</b>."
+tokens=word_tokenize(text)
+print(tokens)
+
+
+# POS Tagging
+text="Hello  World!  This is a sample text with a URL: https://example.com and some HTML <b>tags</b>."
+import nltk
+#from nltk.tokenize import word_tokenize
+from nltk import pos_tag
+#tokens=word_tokenize(text)
+print(tokens)
+print(pos_tag(tokens))
+
+# Named Entity Recognition (NER)
+import nltk
+from nltk import word_tokenize, pos_tag, ne_chunk
+sentence = "Apple targeted by $1 billion class action lawsuit in UK"
+chunks = ne_chunk(pos_tag(word_tokenize(sentence)))
+print(chunks)
+
+# Remove HTML tags
+from bs4 import BeautifulSoup
+# Remove HTML tags
+text = "Hello World! This is a sample text with a URL: https://example.com and some HTML <b>tags</b>."
+text = BeautifulSoup(text, "html.parser").get_text()
+print(text)
+
+# Remove URLs
+import re
+text = "Hello World! This is a sample text with a URL: https://example.com and some HTML <b>tags</b>."
+text = re.sub(r'http\S+|www\S+|https\S+', '', text, flags=re.MULTILINE)
+print(text)
+
+# Remove unwanted white spaces
+text = "Hello    World!    This is a sample text with a URL: https://example.com and some HTML <b>tags</b>."
+text = re.sub(r'\s+', ' ', text).strip()
+print(text)
+
+#Removing punctuation
+
+import string
+
+# Print the punctuation characters
+print(string.punctuation)
+
+# Define the text
+text = "Hello    World!    This is a sample text with a URL: https://example.com and some HTML <b>tags</b>."
+
+# Tokenize the text
+tokens = word_tokenize(text)
+
+# Remove punctuation
+tokens = [word for word in tokens if word not in string.punctuation]
+
+# Join the tokens back into a string
+filtered_text = ' '.join(tokens)
+
+print(filtered_text)
+
+# Removing Stopwords
+from nltk.corpus import stopwords
+stop_words = set(stopwords.words('english'))
+text = "Hello World! This is a sample text with a URL: https://example.com and some HTML <b>tags</b>. Barack Obama was born in Hawaii."
+tokens = word_tokenize(text)
+filtered_words = [word for word in tokens if word not in stop_words]
+filtered_words = ' '.join(filtered_words)
+print(filtered_words)
+
+#stemming of the text
+from nltk.stem import PorterStemmer
+
+text = "Hello World! This is a sample text with some words."
+
+# Tokenize the text into words
+words = word_tokenize(text)
+
+# Initialize the Porter Stemmer
+ps = PorterStemmer()
+
+# Apply stemming
+stemmed_words = [ps.stem(word) for word in words]
+
+print("Original words:", words)
+print("Stemmed words:", stemmed_words)
+
+
+# Lemmatization
+from nltk.stem import WordNetLemmatizer
+
+lemmatizer = WordNetLemmatizer()
+lemmatized_words = [lemmatizer.lemmatize(word) for word in words]
+print("Lemmatized words:", lemmatized_words)
+
+# Sample text
+
+from nltk.stem import WordNetLemmatizer
+text = "Hello World! This is a sample text with some words."
+
+# Tokenize the text into words
+tokens = word_tokenize(text)
+
+# Initialize the WordNet Lemmatizer
+lemmatizer = WordNetLemmatizer()
+
+# Apply lemmatization
+lemmatized_words = [lemmatizer.lemmatize(word) for word in tokens]
+
+print("Original words:", tokens)
+print("Lemmatized words:", lemmatized_words)
+
+
+# POS Tagging
+text="Hello  World!  This is a sample text with a URL: https://example.com and some HTML <b>tags</b>."
+import nltk
+#from nltk.tokenize import word_tokenize
+from nltk import pos_tag
+#tokens=word_tokenize(text)
+print(tokens)
+print(pos_tag(tokens))
+
+# Named Entity Recognition (NER)
+import nltk
+from nltk import word_tokenize, pos_tag, ne_chunk
+sentence = "Apple targeted by $1 billion class action lawsuit in UK"
+chunks = ne_chunk(pos_tag(word_tokenize(sentence)))
+print(chunks)
+
+# Named Entity Recognition (NER)
+# Sample text
+text = "Barack Obama was born in Hawaii and became the president of the United States."
+
+# Tokenize the text into words
+words = word_tokenize(text)
+
+# Perform POS tagging
+pos_tags = pos_tag(words)
+
+# Perform NER
+named_entities = ne_chunk(pos_tags)
+
+print("Named Entities:")
+print(named_entities)
+
+# Chunking
+grammar = "NP: {<DT>?<JJ>*<NN>}"
+cp = nltk.RegexpParser(grammar)
+chunked = cp.parse(pos_tags)
+print("Chunked Text:", chunked)
+
+#chunking of a sentence
+
+# Sample sentence
+
+from nltk import pos_tag, RegexpParser
+sentence = "The big black cat is sleeping on the mat."
+# Tokenize the sentence into words
+words = word_tokenize(sentence)
+
+# Perform POS tagging
+pos_tags = pos_tag(words)
+
+# Define chunking grammar
+grammar = r"""
+    NP: {<DT>?<JJ>*<NN>}    # Chunk sequences of DT, JJ, NN
+        {<NNP>+}            # Chunk consecutive proper nouns
+"""
+
+# Create a chunk parser
+cp = RegexpParser(grammar)
+
+# Parse the POS tagged words using the chunk parser
+chunked = cp.parse(pos_tags)
+
+print("Chunked Text:")
+print(chunked)
